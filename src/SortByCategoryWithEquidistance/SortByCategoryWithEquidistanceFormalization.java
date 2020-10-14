@@ -43,21 +43,16 @@ public class SortByCategoryWithEquidistanceFormalization {
                 new SortByCategoryWithEquidistanceFormalization.Product("продукт 6", "категория 5")
         );
 
-        //test();
-        //sort(data);
-        //sortQueue(data);
 
         /** работающий вариант, вывыд в консоль через @Override toString() из Product  */
         newSort(data);
 
-        //System.out.println(sortedData); //TODO
     }
 
     static void newSort(List<SortByCategoryWithEquidistanceFormalization.Product> products){
         Set<Integer> set = new HashSet<>();
         List<ArrayList<Integer>> list = new ArrayList<>();
         List<Integer> result = new ArrayList<>();
-        List<SortByCategoryWithEquidistanceFormalization.Product> resultProd = new ArrayList<>();
         for(int i = 0; i < products.size(); i++){
             set.add(Integer.parseInt(products.get(i).toString().substring(20)));
         }
@@ -92,124 +87,15 @@ public class SortByCategoryWithEquidistanceFormalization {
                 i = 0;
             }
         }
-        System.out.println(result);
         for(int y = 0; y < products.size(); y++){
             for(int y1 = 0; y1 < products.size(); y1++) {
                 if (Integer.parseInt(products.get(y1).toString().substring(20)) == result.get(y)) {
-                    resultProd.add(products.get(y1));
+                    System.out.println(products.get(y1).toString());
                     break;
                 }
             }
         }
-        for(int h = 0; h < resultProd.size(); h++){
-            System.out.println(resultProd.get(h).toString());
-        }
     }
-
-    /**Здесь хотел через PriorityQueue и Comparator*/
-
-    static void sortQueue(List<SortByCategoryWithEquidistanceFormalization.Product> products){
-        Product prod;
-        Queue<Product> queue = new PriorityQueue<>(new TheComparator<Product>());
-        for(int i = products.size()-1; i >= 0; i--){
-            prod = products.get(i);
-            queue.add(prod);
-        }
-
-        for(Product pr : queue) {
-            System.out.println(pr);
-        }
-        queue.remove();
-        System.out.println();
-        for(Product pr : queue) {
-            System.out.println(pr);
-        }
-    }
-
-    /**хотел найти алгоритм обхода дерева чтобы получилась
-     * отсортированная согласно условию результирующая выборка*/
-
-    static void sort(List<SortByCategoryWithEquidistanceFormalization.Product> products){
-        NavigableMap<String, String> sortedData = new TreeMap();
-        Map.Entry<String, String> beforeMap;
-
-        for(int i = 0; i < products.size(); i++){
-            sortedData.put(products.get(i).toString().substring(0, 9), products.get(i).toString().substring(10,21));
-        }
-
-        Iterator<Map.Entry<String,String>> iterator = sortedData.entrySet().iterator();
-        while(iterator.hasNext()){
-            Map.Entry<String, String> pair = iterator.next();
-            beforeMap = sortedData.higherEntry(pair.getKey());
-            System.out.println("before " + beforeMap);
-        }
-    }
-
-    /** здесь в "лоб" пытался решить */
-
-    public static void test(){
-        List<Integer> list = new ArrayList<>();
-        List<Integer> list2 = new ArrayList<>();
-
-        list.add(1);
-        list.add(1);
-        list.add(1);
-        list.add(2);
-        list.add(2);
-        list.add(3);
-        list.add(3);
-        list.add(3);
-        list.add(3);
-        list.add(3);
-        list.add(4);
-        list.add(6);
-        list.add(6);
-        list.add(6);
-        list.add(6);
-        list.add(11);
-        list.add(0);
-        list.add(9);
-        list.add(9);
-
-        Collections.sort(list);
-        int max = 0;
-        int indexMaxEl = 0;
-
-        for(int i = 0; i < list.size(); i++){
-            for(int j = 1; j < list.size(); j++){
-                if(list.get(i) < list.get(j)){
-                    if(list.get(j) <= max && j <= indexMaxEl){
-                        for(int k = 0; k <= indexMaxEl; k++){
-                            //list2.add(list.get(k));
-                        }
-                        for(int k = 0; k <= indexMaxEl; k++){
-                            //list.remove(k);
-                        }
-                        i = 0;
-                        j = 1;
-                        max = 0;
-                        indexMaxEl = 0;
-                        System.out.println("здесь");
-                        break;
-                    }
-                    list.add(i+1, list.remove(j));
-                    if(list.get(i+1) > max){
-                        max = list.get(i+1);
-                        indexMaxEl = i + 1;
-                    }
-                    break;
-                }
-            }
-        }
-        for(int i = 0; i < list.size(); i++){
-            System.out.print(list.get(i) + " ");
-        }
-        System.out.println();
-        for(int i = 0; i < list2.size(); i++){
-            System.out.print(list2.get(i) + " ");
-        }
-    }
-
 
     /**
      * Можно менять
